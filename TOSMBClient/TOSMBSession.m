@@ -197,7 +197,7 @@
     if (self.ipAddress.length == 0 || self.hostName.length == 0) {
         TONetBIOSNameService *nameService = [[TONetBIOSNameService alloc] init];
         
-        if (self.ipAddress == nil)
+        if (self.ipAddress.length == 0)
             self.ipAddress = [nameService resolveIPAddressWithName:self.hostName type:TONetBIOSNameServiceTypeFileServer];
         else
             self.hostName = [nameService lookupNetworkNameForIPAddress:self.ipAddress];
