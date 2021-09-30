@@ -110,22 +110,13 @@
     return self;
 }
 
-//SO Answer by Dave DeLong - http://stackoverflow.com/a/11978614/599344
 - (NSDate *)dateFromLDAPTimeStamp:(uint64_t)timestamp
 {
-    NSDateComponents *base = [[NSDateComponents alloc] init];
-    [base setDay:1];
-    [base setMonth:1];
-    [base setYear:1601];
-    [base setEra:1]; // AD
-    
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDate *baseDate = [gregorian dateFromComponents:base];
-    
-    NSTimeInterval newTimestamp = timestamp / 10000000.0f;
-    NSDate *finalDate = [baseDate dateByAddingTimeInterval:newTimestamp];
-    
-    return finalDate;
+    // Convert LDAP timestamp to Unix timestamp
+    // See: https://stackoverflow.com/a/4647445
+    uint64_t unixTimestamp = timestamp / 10000000 - 11644473600;
+
+    return [NSDate dateWithTimeIntervalSince1970:unixTimestamp];
 }
 
 - (NSDate *)accessTime
