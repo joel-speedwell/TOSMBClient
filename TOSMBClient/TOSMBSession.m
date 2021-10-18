@@ -203,8 +203,8 @@
             self.hostName = [nameService lookupNetworkNameForIPAddress:self.ipAddress];
     }
     
-    //If there is STILL no IP address after the resolution, there's no chance of a successful connection
-    if (self.ipAddress == nil) {
+    //If there is STILL no IP address or hostName after the resolution, there's no chance of a successful connection
+    if (self.ipAddress == nil || self.ipAddress.length == 0 || self.hostName == nil || self.hostName.length == 0) {
         return errorForErrorCode(TOSMBSessionErrorCodeUnableToResolveAddress);
     }
     
